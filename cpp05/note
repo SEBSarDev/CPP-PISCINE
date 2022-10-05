@@ -1,0 +1,38 @@
+le try catch permet de faire remonter les erreurs, cela evite de devoir faire ca avec des return (-1).
+il faut pour cela mettre dans notre class une autre class qui eherrite de std::exception
+
+class errorException : public std::exception
+{
+	public :
+	virtual const char *what() const throw();
+};
+
+puis il faut l'implementer
+
+const char *maClass::errorException::what(void) const throw()
+{
+	return("error");
+}
+
+et ensuite on pourra recuperer une erreur et la jeter, ca interrompra l'execution pour renvoyer cette erreur.
+
+if (ther is an error)
+	throw maClass::errorException();
+
+
+et alors si en remontant cette erreur est recuperee par un catch, il pourra afficher le retour error
+
+do_somehting()
+{
+	if (error)
+		throw maClass::errorException();
+}
+
+try
+{
+	do_something();
+}
+catch (std::exception &e)
+{
+	std::cout << e.what() << std::endl;
+}

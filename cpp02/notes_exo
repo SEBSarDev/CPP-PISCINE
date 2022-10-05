@@ -1,0 +1,58 @@
+ex00
+apprend a declarer et initialiser les constructeurs par copie, et les overload d'operateur (=)
+en gros
+constructeur par copie: c'est quand par exemple on va appeler le constructeur, mais avec un parametre : une instance de l'objet. et ca vet dire, en gros, copie moi cet objet.
+ex
+MaClasse MonInstance;
+MaClasse MaCopie(MonInstance)
+donc dans la class elle e declare:
+MaClass(const MaClass &class_a_copier)
+et dans l'implementation, il faudra attribuer les valeur de la classe a copier a la nouvel classe.
+
+et pour overload d'operateur d'assignation.
+simple, operateur d'assignation c'est = comme dans int a = 1, on assigne 1 a a.
+et bien la c'est une fonction qui va permettre de faire ca avec nos instance.
+par ex
+MaClasse MonInstance;
+MaClasse MonAutreInstance;
+MonAutreInstance = MonInstance.
+quand il se passe ca, ca va appeler l'overload d'op d'asignation et ca va retouner la reference.
+
+ex01
+alors la c'est chaud.
+prenons l'exemple de 42.42
+en binaire ca fait :
+
+       | 2^6 | 2^5 | 2^4 | 2^3 | 2^2 | 2^1 | 2^0 | point  | 2^-1 | 2^-2  | 2^-3   | 2^-4    | 2^-5     | 2^-6      | 2^-7       | 2^-8        | -> on s'arrete a -8 car nb_Bits_fractionnel = 8, donc 8 bit apres le point binaire, donc pas la peine d'aller pus loin
+       | =64 | =32 | =16 | =8  | =4  | =2  | =1  | binaire| =0.5 | =0.25 | =0.125 |= 0.0625 |= 0.03125 |= 0.015625 |= 0.0078125 | =0.00390625 |
+       | 0   | 1   | 0   | 1   | 0   | 1   |  0  |    .   |  0   |   1   |  1     |   0     |    1     |   0       |    1       |      1      |
+(reste | 42  |10   |  10 | 2   | 2   | 0   |  0  |        | 0.42 | 0.17  | 0.045  |   0.045 | 0.01375  |  0.01375  |  0.0059375 | 0.00203125  |  etc...)
+bref on obtient le nombre binaire :
+
+101010.01101011
+Hors pour obtenir un point fixe, il faut changer nos nombre selon le meme schemas (deplacer de 8 bits vers la gauche), et ainsi obtenir des int.
+malheureusement on ne peut pas utiliser l'operateur << sur des floats. Mais on sait grace au petit cours de berckeley, que deplacer un chiffre vers la gauche reviens a le multiplier par 2, et le deplacer vars la droite reviens a le diviser par 2.
+ainsi deplacer un nombre de 1  bits vers lagauche reviens a le multiplier par 2, et si on le redeplace encore une fois d'un bit, en tout ca fait deux bit, donc on le multiplie une fois par 2, puis encore par deux... et ca revens au puissance.
+donc le deplacer de 8 bits reviens a le multiplier (ou diviser selon le sens) par 2^8.
+
+on peut le prouver ainsi :
+101010.01101011  si on deplace de 8 bit donne en binaire 10101001101011.0 ce qui revient a dire 10859 en valeur decimale.
+et si l'on fait 42.42 * 256, c'est bien egale a 10859(.52 mais ca n'est pas precise sur la partie binaire car on n'as pas poursuivit au dela de 2^-8)
+dans le sujet, le resultat en float est 42.4219, au debut je trouvait 42.418, c'est simplement car quand je faisait mon 42.42 * 256, je recuperer la valeur en int, et donc arrondi a l'inferieur, donc 10859. comme le sujet l'autorise, j'ai arrondi au superieur, 10860, et le resultat est ainsi le meme.
+astuce, avec l'apprentissage du decalage par bit, on peut donc en deduire que si on prend le nombre 1, et qu'on le decale de 8 bits, cela donnera 256.
+donc
+
+2^8  |2^7  | 2^6  | 2^5  | 2^4  | 2^3  | 2^2  | 2^1  | 2^0  |
+256  |128  | 64   | 32   | 16   |  8   |  4   |  2   |  1   |
+
+ex02
+les surcharges de fonctions et les operateurs de surcharge. le tout est de bien saisir ce qu'est sence renvoye la fonction en question.
+les surcharge de onction ce sont les fonctions qui ont le meme nom que d'autre mais n'ont pas les meme parametre. ex : fonction max, une a des parametre de type Fixed & et l'autre de type const Fixed &. et lors de l'appelle de la focntion le programme en c++ saura automatiquement vers quelle fonction se touner.
+classe canonique doit forcement comprendre un constructeur par default, un constructeur par copie et une fonction operateur d'assignation . cela peut etre une bonne habitude d'ajouetr automatiquement des accesseur pour les variable prive ainsi qu'un operateur de surcharge de << pour rediriger une variable vers un output.
+pour post-increment, on increment la variable de la classe mais on renvoie la valeur d'avant incrementation.
+
+ex03
+pour savoir si un point est dans un triangle, il faut determiner sa position par rapport aux autres points qui constituent le triangle.
+formule ici : https://stackoverflow.com/questions/2049582/how-to-determine-if-a-point-is-in-a-2d-triangle
+pour ce qui est du C rien de plus que ce qui est demande precedemment, il faut les deux constructeur, l'operateur d'assignement, j'ai ajouter des accesseurs. et des accesseur pour la avoir la valeur de getRawBits des fixed, c'est un peu inception le truc... il faut utiliser les fonction membre des points fixe depuis la class point... j'ai eu pas mal de bug aussi avec les const etc...
+bref voila.

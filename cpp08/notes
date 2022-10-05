@@ -1,0 +1,24 @@
+https://stackoverflow.com/questions/11275444/c-template-typename-iterator
+
+https://coderedirect.com/questions/657529/stl-iterator-with-custom-template
+
+https://www.geeksforgeeks.org/the-c-standard-template-library-stl/
+
+https://stackoverflow.com/questions/36621225/get-container-behind-stdstack    -> underlying container in stack
+
+https://cpp.developpez.com/faq/cpp/?page=Les-templates#Pourquoi-mes-templates-ne-sont-ils-pas-reconnus-a-l-edition-des-liens
+
+dans stack, il y a un container sous jacent, c'est a dire que stack n'a pas d'iterator mais il comprend un autre container qui utilise iterator par exemple.par defaut le container sous jacent est deque, mais on peut decider de mettre list ou autre.
+on accede au container sous jacent grace au protected membre c.
+donc dans notre class mutanstack on veut acceriable au container sous jacent de stack dont herite mutanstack.
+donc std::stack<T>::container_type
+container_type correspond au container sous jacent, ici par defaut, donc deque.
+donc avec deque on peut acceder au nouvel fonction associee comme iterator.
+std::stack<T>::container_type::iterator
+dans le main de test on voit qu'o utilise directement iterator. il faut donc definir un typedef appele iterator qui reprend la formulation precedente. on utilise typedef pour creer un nouveau type a utiliser dans notre code et qui reduit la taille du nom, et typename va parmettre de faire comprendre au compilateur que le nom utilise est bien un type et pas un membre statique de la classe.
+donc 
+typedef typename std::stack<T>::container_type::iterator iterator
+voila pour acceder au type.
+
+pour acceder au foncitonnalite du container sous jacent c'est beaucoup plus simple, il suffit d'utiliser le membre protege c:
+std::stack<T>::c.end();

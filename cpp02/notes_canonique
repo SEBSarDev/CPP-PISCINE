@@ -1,0 +1,12 @@
+class T
+{
+    public:
+        T (); // Constructeur par défaut
+        T (const T&); // Constructeur de recopie
+        ~T (); // Destructeur éventuellement virtuel
+        T &operator=(const T&); // Operator d'affectation
+};
+
+le constructeur par recopie sert quand une fonction appelle avec une instance de la classeen agument mais aussi pour les retour d'instance. cree une copie, l'idee est de rien modifier dans la classe. appelle en parametre la reference constante de la classe, evite de toucher a ce qui n'et pas constant, et de faire une boucle infini de creation.
+L'opérateur d'affectation est utilisé pour dupliquer un objet dans un autre en dehors des déclarations où ce rôle est dévolu au constructeur de recopie. De fait, il est nécessaire de créer un opérateur lorsqu'il est nécessaire de créer un opérateur de recopie : agrégation et allocation dynamique de mémoire ; dans tous les autres cas, le compilateur crée pour vous un opérateur d'affectation « par recopie bit à bit optimisée » qui frôle la perfection.
+Un constructeur travaille toujours sur un matériau vierge : en effet, il est toujours appelé juste après l'allocation de mémoire. Tout au contraire, l'opérateur d'affectation est appelé sur un objet totalement instancié et, bien souvent, ayant déjà un lourd passé derrière lui. Aussi, toute opération d'affectation devra commencer par rétablir un terrain favorable à la recopie en détruisant les blocs de mémoire déjà affectés ainsi que les objets agrégés.

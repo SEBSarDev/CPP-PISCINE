@@ -1,0 +1,33 @@
+https://zestedesavoir.com/tutoriels/553/les-conversions-de-types-en-c/
+
+conversion : transformer le codage dun octet vers un autre codage pour garder la meme valeur.
+peut faire conversion implicite en c et explicite
+tant qu'on veut convertir un type vers un autre plus precis c'est bon , mais d'un type precis vers un moins precis c'est pas bon
+demotion du type = on pert de la precision d'un type a un autre. pour demotion, tjrs explicit
+flag -Wnoconversion ne permet pas les conversions implicit
+
+la reinterpretation : conversion identitaire:apres conversion lca garde le meme nombre de bits dans le meme ordre
+hierarchie, il y a des types plus general que d'autre ex void * est plus general que float.
+si on reinterpret un pointeur de floatant vers un int, on retrouvera pas du tout le meme resultat.
+donc
+float a = 420.042f;
+void *b = &a;
+int *c = d; -> la c'est plus du tout la meme chose.
+donc 
+convertion reagencement de bit alors que la reinterpretation non ? c'est avec pointeur?
+cas particulier de reinterpretation, pas de transformation de bit, cast de type qualifier, avec const et volatile.
+passe de 
+int const* d = &a;
+a
+int * b = (int *)d;
+oblige que ce soit explicite.
+
+conversion en c :
+int a = 42;
+float b = (float)a;
+en c++ :
+int a = 42;
+float b = static_cast<float>a;
+et on  peut le faire avec parent et enfant d'une classe aussi, mais fonctionne pas entre deux classes differentes.
+
+

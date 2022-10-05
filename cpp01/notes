@@ -1,0 +1,27 @@
+ex00, idee est de detruire les zombie au bon moment quand on en a plus besoin.
+il y a deux fonction, l'une cree le zombie et le renvoie pour pouvoir etre utiliser plus tard,
+donc clairement il faut pas supprimer le zombie a la sorti e de cette fonction, sinon ca va 
+pas marcher, donc il faudra alloue surement, 
+et l'autre fonction cree le zombie et le fais s'annoncer, et c'est tout,
+donc ici pas besoin de le garder, donc il peut etre supprimer a la sortie de cette fonction,
+on peut donc dans cette fonction creer une instance sur la stack directement.
+
+ex01, cree une horde, meme prncipe ne pas oublie de delete le tableau ensuite.
+
+ex02. introduction reference. une reference ne se refere pas a ell meme, et elle n'as pas sa propropre address. elle doit toujours etre initialise, ne peut pas etre null, ne peut pas changer et est tjrs derefence. Donc elle nefait jamais reference a elle meme mais que a la variable sur laquelle elle pointe.
+
+ex03
+deux humain, humainB utilise les pointeur comme on a l'habitude. on note cependant que pour changer l'arme il faut passe a reference, sinon on envoie une copie et donc les changement fait sur cette arme ne seront pas pris en compte dans la classe humainb. Dans humainA c'est different, on utilise la reference car l'humainA n'a pas le droit de ne pas etre arme donc la ref s'y prete bien. mais du coup on est oblige d'initailise la variable qui est une reference dans l'initializer list car si on entre dans le constructeur c'est qu'on a construit l'instnce et donc qu'on a declarer une ref sans l'initailiser et ce n'est pas possible. la classe weapon est une classe definit normalement, sans ref ni pointeur.
+
+ex04.
+utilisation de ifstream et ofstream afin de lire et d'ecrire dans un fichier. Attention, pas le droit d'utiliser "les fonction de manipulation de fichier de C" j'imagine que c'est open et close ? du coup j'ai passe les argument pour ouvrir grace au ifstream dans le constructeur. et vu que je cree une class, pas besoin de close, c'est detrit dans le destructeur;
+
+ex05
+tableau de pointeur sur fonction membre, tout cela mele a un for pour eviter les if.
+forme : (void) (Class::*ptr[Nb])()
+for (i = 0; i < nb; i++)
+	if (name == tab[i])
+		(this->*ptr[i])();
+
+ex06
+utilisation de switch, switch ne fonctionne qu'avec des nombre;

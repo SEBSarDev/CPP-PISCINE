@@ -1,0 +1,24 @@
+si on fait :
+Character *a = new Warrior;
+et bien ce sont les argument de character qui vont ressortir et utilisation des fonctions de charactersauf si on met virtual devant les fonctions ou l'on veut que ce soit celle des class enfants qui soient appelee.
+ca permet de rendre la resolution de l'appelle d'une fonction dynamique c'est a dire qu'elle n'est plus predetermine a la compilation en fonction du type.
+va ller chercher son type reel au moment de l'appelle
+une fonction membre virtuelle s'appelle une methode.
+
+methode pure -> on peut pas instancier, n'a pas de definition, elle n'existe pas
+donc on la met a 0 :
+type mafonction() = 0;
+
+les interface : toutes les methode sont pure, ca sert simplement aux classe enfant a avoir le schemas de ce qu'elles ont.
+alors que les classes abstraite =toutes les fonctions ne sont pas pure, certaine sont pas ul, mais s'il y en a une seule de nulle, cela fait une classe abstraiteet par consequent on ne pourra pas instensier une classe absraite.
+
+Mais grace au polymorphisme on pourra instancier des enfants des classes abstraite et des interface. il faut pour ca utiliser des pointeurs (sinon ca veut dire qu'on instencie directement la classe abstraite ou l'interface et ce n'est pas possible) et ensuite faire pointer vers l'enfant que l'on veut.
+ex :
+AMaClasseAbstraite *a = new MonEnfant();
+IMonInterface *b = new MonEnfant2();
+
+Mais ATTENTIOn, dans le polymorphisme, le probleme c'est que le pointeur est de type classe abstraite ou interface... Dans l'heritage on a vu que si l'enfant avait une fonction de meme nom et meme type que le parent, cette fonction ecrasait celle du parent et elle serait utiliser a la place lors d'un appel par une instance de l'enfant. en revanche si on appelle cette fonction depuis une instance du parent c'est la fonction du parent qui serait prise. et bien le probleme ici est que comme le pointeur est defini sur la classe parents c'est la fonction du parent qui va etre appelee meme si on a fait new enfant(). Pour eviter cela, on va simplement marquer les fonctions que l'on veut etre appele par l'enfant par un "virtual" qui precedera le nom de la fonction. pon le fera chez le parent et chez l'enfant.
+ex :
+virtual std::string fonction();
+
+enfin dans une classe abstraite ou interface, il faudra toujours mettre le destructeur en virtuel, sinon il appellera le destructeur de la classe abstraite (qui n'a rien a liberer puisqu'elle ne s'instencie pas) et ca n'appelera pas celui de la classe enfant, qui lui est instensie, donc il y aura des leaks.

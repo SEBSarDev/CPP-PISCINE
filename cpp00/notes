@@ -1,0 +1,49 @@
+http://www.cplusplus.com/reference/string/string/
+http://www.cplusplus.com/reference/iomanip/
+
+une classe = la base de l'objet, ou de l'instance, c'est ce qui permet de construire l'instance.
+une instance = un objet
+un attribut (ou variable membre, variable dans une classe)
+une methode (ou fonction membre, fonction dans une classe)
+:: = operateur de resolution de portee (ca dit ou aller chercher, etc std::endl, va chercher dans le namespce std la variable endl;
+>> operateur qui redirige un flux vers stdout
+<< operateur qui redirige vers stdin
+encapsulation = TOUS LES ATTRIBUTS D'UNE CLASSE DOIVENT ETRE PRIVE!
+
+this -> fait reference a l'instance actuelle
+
+on peut initialiser directement sur la meme ligne que la declaration de fonction 
+ex : 
+void test(int param1) : attribute1(param1)
+
+const : avoir un code le plus constant ossible c'est mieux !
+si on voit un fonction de type 
+void exemple(void) const
+cela signifie que les attribue de la classe ne peuvent pas etre modifier depuis cette fonction
+
+visibility : public -> fonction accessible depuis partout et private -> accessible que depuis les fonction de la classe meme
+diff entre struct et class : dans class si on precise pas, tout est defini en private, alors que dans struct, pas de notion de private ou public, tout est public.
+
+stdio stream : cout >> et cin << 
+
+accesseur : comme les attrubut doivent etre prive, on y accede (pour avoir la donne ou la modifier) via des fonction ce sont les accesseur : souvent : setfoo() et getfoo() par exemple
+
+comparison : on peut faire des fonction qui permette de verifier si deux instance sont identique structurellement:
+ex : bool compare( Instance other)
+
+les fonction et attribut non membre:
+fonction et attribut dans la classe mais en static donc commune a toutes les instance et pas vraiment necessaire au fonctionnement d'une instance mais plutot pour les infos de la classe elle meme.
+
+pointeur sur membre : https://elearning.intra.42.fr/notions/piscine-c-d00-c-basics/subnotions/piscine-c-d00-c-basics-pointers-to-members/videos/pointers-to-members-08a26a7b-4a2b-41be-b969-f29b6f9e39ab
+
+static :
+dans fonction static, fnction non membre le parametre invisible "this" n'est pas passer, on n'accede donc pas au 
+donnée de la class grave a this->myvar, mais comme ceci Myclass::my_var
+pour initialiser une variable non membre, une variable static, il faut le faire dans le fichier cpp, en dehors de toute fonction:
+int Maclass::my_var = 0;
+
+pour avoir le resultat du log sans l'horodatage :
+
+cat 19920104_091532.log | sed 's/.\{18\}//' > res1
+./a.out | sed 's/.\{18\}//' > res2
+diff res1 res2

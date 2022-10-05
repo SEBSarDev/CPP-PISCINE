@@ -1,0 +1,27 @@
+Heritage
+on declare qu'une classe herite d'une autre en ajoutant dans l'initilizer list:
+MaClasse::Maclasse(void arg) : ClasseMere()
+il faut egalement mettre dans le hpp class MaClasse : public ClasseMere
+
+Heritage multiple : https://www.irphe.fr/~bd/classes/clhermul.htm
+
+nouvelle categorie : public, prive et mantnant protected. protected laisse voir aux enfants les varibles et fonctions de cette categorie.
+pour l'heritage en diamant il y a
+
+			classeMere
+            /         \
+           /           \
+        Enfant1       Enfant1b
+          \            /
+           \          /
+           ClasseEnfant2
+
+comme enfant1 et enfant1b herite toute les deux de classe mere, au moment de leur consructions elle vont appeer le constructeur de classemere toute deux. pur eviter ca, on place le mot virtual devant public dans le hpp et sinon au niveau de l'nitalisation des variables, il prendra automatiquement les  valeur de la derniere classe mere appele, ca se lit de gauche a droie
+dans
+
+MaClassEnfant () : ClassMere1(), classMere2
+s'il y a les meme variable dans classeMere1 e classemere2 avec des initalisation differentes, c'est celle de classemere2 qui vont reste et ecraser les precedente initialisation.
+
+pour prendre les variable un peut des deux cote, ce que j'ai fait c'est que j'ai mis une variable en protected dans une classe et l'autre classe je l'ai mis en private.
+mais en fait il suffit de faire :
+this->_energy = this->ScavTrap::_energy 
